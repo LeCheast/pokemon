@@ -30,6 +30,12 @@ $pokemons = get_all_pokemon();
         padding-right: 5px;
         border-radius: 6px;
     }
+
+    @media(max-width: 575px) {
+        .card-img-div {
+            height: 100%;
+        }
+    }
 </style>
 
 <div class="container">
@@ -38,7 +44,7 @@ $pokemons = get_all_pokemon();
 
     <div class="row">
         <?php foreach ($pokemons as $pokemon) : ?>
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                 <div class="card">
                     <div class="card-img-div">
                         <img class="card-img-top <?php echo ($pokemon['url'] == null ? "default-img" : "") ?>" src="<?php echo ($pokemon['url'] == null ? "../images/pokemon-logo.png" : $pokemon['url']) ?>" alt="<?= $pokemon['name'] ?> image">
