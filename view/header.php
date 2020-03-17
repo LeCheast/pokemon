@@ -13,6 +13,14 @@
     .nav-link {
         color: white !important;
     }
+
+    .navbar-dark .navbar-toggler {
+        border-color: white !important;
+    }
+
+    .navbar-dark .navbar-toggler-icon {
+        background-image: url("../images/pokeball.png") !important;
+    }
 </style>
 
 <head>

@@ -12,4 +12,6 @@ if (!isset($_SESSION["logged_in"])) {
     <h1>Hello <?= $_SESSION["fname"] ?></h1>
 </div>
 
+<?php include("../dex/index.php"); ?>
+
 <?php include("../view/footer.php"); ?>
