@@ -10,7 +10,8 @@ if ($returnedUser) {
 
     $_SESSION["logged_in"] = TRUE;
     $_SESSION["userid"] = $returnedUser["userid"];
-    $_SESSION['fname'] = $returnedUser["fname"];
+    $_SESSION["fname"] = $returnedUser["fname"];
+    $_SESSION["admin"] = $returnedUser["admin"];
 
     header("Location: /home");
 } else {
