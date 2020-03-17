@@ -9,6 +9,10 @@
     #siteNavBar {
         background-color: #E3350D !important;
     }
+
+    .nav-link {
+        color: white !important;
+    }
 </style>
 
 <head>
@@ -33,17 +37,13 @@
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Features</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Pricing</a>
+                    <a class="nav-link" href="/home">Home</a>
                 </li>
             </ul>
-            <span class="navbar-text">
-                <a class="nav-link" href="/logout.php">Signout</a>
-            </span>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout.php">Signout</a>
+                </li>
+            </ul>
         </div>
     </nav>

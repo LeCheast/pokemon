@@ -6,5 +6,10 @@ if (!isset($_SESSION["logged_in"])) {
 ?>
 
 <?php include("../view/header.php"); ?>
-<h1>Hello <?= $_SESSION["fname"] ?></h1>
+<title>Home - Pokemon DnD</title>
+
+<div class="container">
+    <h1>Hello <?= $_SESSION["fname"] ?></h1>
+</div>
+
 <?php include("../view/footer.php"); ?>
