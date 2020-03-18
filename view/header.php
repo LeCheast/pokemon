@@ -36,7 +36,7 @@
 
 <body>
     <nav id="siteNavBar" class="navbar-expand-lg navbar navbar-dark bg-primary">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/home">
             <img id="pokemonLogo" src="../images/pokemon-logo.png" alt="pokemon logo" />
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
