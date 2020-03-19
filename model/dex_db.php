@@ -58,15 +58,47 @@ function get_pokemon_dex_status($userid, $pokeid)
     return $statement->fetch();
 }
 
+function get_all_pokemon_dex_status()
+{
+    global $db;
+    $query = "SELECT * FROM dex WHERE userid = :userid";
+
+    $statement = $db->prepare($query);
+    $statement->bindParam(':userid', $_SESSION['userid']);
+
+    $statement->execute();
+    return $statement->fetchAll();
+}
+
 function update_dex($userid, $pokeid, $status)
 {
     global $db;
-    $query = "UPDATE dex SET status = :status WHERE pokeid = :pokeid AND userid = :userid";
 
+    $query = "SELECT * FROM dex WHERE pokeid = :pokeid AND userid = :userid";
     $statement = $db->prepare($query);
-    $statement->bindParam(':status', $status);
     $statement->bindParam(':pokeid', $pokeid);
     $statement->bindParam(':userid', $userid);
 
     $statement->execute();
+    $indb = $statement->fetch();
+
+    if ($indb) {
+        $updateQuery = "UPDATE dex SET status = :status WHERE pokeid = :pokeid AND userid = :userid";
+
+        $updateStatement = $db->prepare($updateQuery);
+        $updateStatement->bindParam(':status', $status);
+        $updateStatement->bindParam(':pokeid', $pokeid);
+        $updateStatement->bindParam(':userid', $userid);
+
+        $updateStatement->execute();
+    } else {
+        $insertQuery = "INSERT INTO dex (pokeid, status, userid) VALUES(:pokeid, :status, :userid)";
+
+        $insertStatement = $db->prepare($insertQuery);
+        $insertStatement->bindParam(':status', $status);
+        $insertStatement->bindParam(':pokeid', $pokeid);
+        $insertStatement->bindParam(':userid', $userid);
+
+        $insertStatement->execute();
+    }
 }

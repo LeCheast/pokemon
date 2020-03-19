@@ -30,6 +30,10 @@ $pokemonDexStatus = get_pokemon_dex_status($_SESSION['userid'], $pokemonid);
         margin: 20px 0;
     }
 
+    img {
+        width: 215px;
+    }
+
     @media(max-width: 530px) {
         table {
             display: none;
@@ -146,8 +150,6 @@ $pokemonDexStatus = get_pokemon_dex_status($_SESSION['userid'], $pokemonid);
                 'pokeid': $('#pokemon').attr('data-pokeid'),
                 'status': status
             };
-
-            debugger;
 
             $.post(ajaxurl, data, function(response) {
                 if (response == '') {
