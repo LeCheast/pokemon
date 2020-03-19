@@ -2,6 +2,16 @@
 
 require("database.php");
 
+if (isset($_REQUEST['action'])) {
+    switch ($_REQUEST['action']) {
+        case 'dexUpdate':
+            session_start();
+            update_dex($_SESSION['userid'], $_REQUEST['pokeid'], $_REQUEST['status']);
+            break;
+    }
+}
+
+
 function get_all_pokemon()
 {
     global $db;
@@ -22,4 +32,41 @@ function get_pokemon_stats($id)
     $statement->execute();
 
     return $statement->fetch();
+}
+
+function get_dex_statuses()
+{
+    global $db;
+    $query = "SELECT * FROM dexstatus";
+
+    $statement = $db->prepare($query);
+    $statement->execute();
+
+    return $statement->fetchAll();
+}
+
+function get_pokemon_dex_status($userid, $pokeid)
+{
+    global $db;
+    $query = "SELECT * FROM dex WHERE userid = :userid AND pokeid = :pokeid";
+
+    $statement = $db->prepare($query);
+    $statement->bindParam(':userid', $userid);
+    $statement->bindParam(':pokeid', $pokeid);
+
+    $statement->execute();
+    return $statement->fetch();
+}
+
+function update_dex($userid, $pokeid, $status)
+{
+    global $db;
+    $query = "UPDATE dex SET status = :status WHERE pokeid = :pokeid AND userid = :userid";
+
+    $statement = $db->prepare($query);
+    $statement->bindParam(':status', $status);
+    $statement->bindParam(':pokeid', $pokeid);
+    $statement->bindParam(':userid', $userid);
+
+    $statement->execute();
 }

@@ -10,6 +10,10 @@ require("../model/dex_db.php");
 $pokemonid = $_REQUEST['id'];
 
 $pokemonStats = get_pokemon_stats($pokemonid);
+
+$pokemonStatuses = get_dex_statuses();
+
+$pokemonDexStatus = get_pokemon_dex_status($_SESSION['userid'], $pokemonid);
 ?>
 
 <?php include("../view/header.php"); ?>
@@ -62,10 +66,18 @@ $pokemonStats = get_pokemon_stats($pokemonid);
         <div class="col-lg-12">
             <img class="<?php echo ($pokemonStats['url'] == null ? "default-img" : "") ?>" src="<?php echo ($pokemonStats['url'] == null ? "../images/pokemon-logo.png" : $pokemonStats['url']) ?>" alt="<?= $pokemonStats['name'] ?> image">
 
-            <h1><?= $pokemonStats['name'] ?> #<?= $pokemonStats['pokenum'] ?></h1>
+            <h1 id="pokemon" data-pokeid="<?= $pokemonStats['pokeid'] ?>"><?= $pokemonStats['name'] ?> #<?= $pokemonStats['pokenum'] ?></h1>
 
             <span class="pokemon-type" style="background-color: <?= $pokemonStats['color1'] ?>"><?= $pokemonStats['type1'] ?></span>
             <span class="pokemon-type" style="background-color: <?= $pokemonStats['color2'] ?>"><?= $pokemonStats['type2'] ?></span>
+
+            <select id="caughtStatus" class="form-control">
+                <?php foreach ($pokemonStatuses as $pokemonstatus) : ?>
+                    <option value="<?= $pokemonstatus['dexstatusid'] ?>" <?php echo ($pokemonstatus['dexstatusid'] == $pokemonDexStatus['status'] ? "selected" : "") ?>>
+                        <?= $pokemonstatus['statusname'] ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
 
             <table class="table">
                 <thead>
@@ -121,5 +133,31 @@ $pokemonStats = get_pokemon_stats($pokemonid);
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+
+        $('#caughtStatus').on('change', function() {
+            var status = $('#caughtStatus').val();
+
+            var ajaxurl = "/model/dex_db.php";
+            var data = {
+                'action': 'dexUpdate',
+                'pokeid': $('#pokemon').attr('data-pokeid'),
+                'status': status
+            };
+
+            debugger;
+
+            $.post(ajaxurl, data, function(response) {
+                if (response == '') {
+                    location.reload();
+                } else {
+                    alert(response);
+                }
+            });
+        });
+    });
+</script>
 
 <?php include("../view/footer.php"); ?>
